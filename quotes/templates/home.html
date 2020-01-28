@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if ticker == None %}
+	{% if api == None %}
+		</br></br>
+		<h1> Welcome to Stock Portfolio </h1>
+		</br></br>
+		<h2> Please enter a ticker above in order to see the data </h2>
+	{% endif %}
+{% endif %}
+
+{% if api %}
+	{% if api == "Error..." %}
+		There was a problem with your ticker symbol, 
+		please try again
+	{% else %}
+		<h1> {{ api.companyName }} </h1>
+		</br></br>
+		<table class="table table-dark table-striped table-bordered table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">Price</th>
+		      <th scope="col">Previous Close</th>
+		      <th scope="col">Market Cap</th>
+		      <th scope="col">YTD Change</th>
+		      <th scope="col">Week52 High</th>
+		      <th scope="col">Week52 Low</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<tr>
+				<td>${{ api.latestPrice }}</td>
+				<td>${{ api.previousClose }}</td>
+				<td>${{ api.marketCap }}</td>
+				<td>{{ api.ytdChange }}%</td>
+				<td>${{ api.week52High }}</td>
+				<td>${{ api.week52Low }}</td>
+			</tr>
+		  		
+		  </tbody>
+		</table>
+
+	{% endif %}
+
+{% endif %}
+
+
+{% endblock %}
